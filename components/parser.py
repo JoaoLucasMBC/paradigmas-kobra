@@ -5,7 +5,7 @@ def create_parser():
 
     pg = ParserGenerator(
         # A list of all token names, accepted by the lexer.
-        ['NUMBER', 'OPEN_PARENS', 'CLOSE_PARENS', 'OPEN_CURLY', 'CLOSE_CURLY','OPEN_SQUARE', 'CLOSE_SQUARE', 'COLON',
+        ['NUMBER', 'OPEN_PARENS', 'CLOSE_PARENS', 'OPEN_CURLY', 'CLOSE_CURLY', 'COLON',
         'PLUS', 'MINUS', 'MUL', 'DIV', 'POW', 'INT', 'FLOAT', 'ID','ENDLINE',
         'EQUALS','COMP','IF','ELSE','WHILE', 'MAIN', 'PRINT', 'STRING'
         ],
@@ -46,61 +46,35 @@ def create_parser():
     # COMANDOS - CASO ABERTO
     ##################################################
 
-    @pg.production('instructions : openinstruction')
-    def instruction_openinstruction(p):
+    @pg.production('instructions : instruction')
+    def instruction_instruction(p):
         return Instructions(p[0],None)
 
-    @pg.production('instructions : openinstruction instructions')
+    @pg.production('instructions : instruction instructions')
     def instruction_instructions(p):
         return Instructions(p[0],p[1])
 
-    @pg.production('openinstruction : ID EQUALS expression ENDLINE')
-    def openinstruction_atrib(p):
-        return Atrib(p[0].getstr(),p[2])
-
-    @pg.production('openinstruction : PRINT OPEN_PARENS STRING CLOSE_PARENS ENDLINE')
-    def print_instruction(p):
-        return Print(p[2].getstr())
-
-    @pg.production('openinstruction : PRINT OPEN_PARENS expression CLOSE_PARENS ENDLINE')
-    def print_instruction(p):
-        return Print(p[2])
-
-    @pg.production('openinstruction : IF OPEN_PARENS expression COMP expression CLOSE_PARENS OPEN_CURLY openinstruction CLOSE_CURLY')
-    def expression_ifelse1(p):
-        return IfElse (p[2],p[3],p[4],p[7],None)
-
-    @pg.production('openinstruction : IF OPEN_PARENS expression COMP expression CLOSE_PARENS OPEN_CURLY closedinstruction CLOSE_CURLY ELSE OPEN_CURLY openinstruction CLOSE_CURLY')
-    def expression_ifelse2(p):
-        return IfElse (p[2],p[3],p[4],p[7],p[11])
-
-    @pg.production('openinstruction : WHILE OPEN_PARENS expression COMP expression CLOSE_PARENS OPEN_CURLY instructions CLOSE_CURLY')
-    def instruction_while(p):
-        return While (p[2],p[3],p[4],p[7])
-
-
-    ##################################################
-    # COMANDOS - CASO FECHADO
-    ##################################################
-
-    @pg.production('closedinstruction : ID EQUALS expression ENDLINE')
+    @pg.production('instruction : ID EQUALS expression ENDLINE')
     def instruction_atrib(p):
         return Atrib(p[0].getstr(),p[2])
 
-    @pg.production('closedinstruction : PRINT OPEN_PARENS STRING CLOSE_PARENS ENDLINE')
+    @pg.production('instruction : PRINT OPEN_PARENS STRING CLOSE_PARENS ENDLINE')
     def print_instruction(p):
         return Print(p[2].getstr())
 
-    @pg.production('closedinstruction : PRINT OPEN_PARENS expression CLOSE_PARENS ENDLINE')
+    @pg.production('instruction : PRINT OPEN_PARENS expression CLOSE_PARENS ENDLINE')
     def print_instruction(p):
         return Print(p[2])
 
-
-    @pg.production('closedinstruction : IF OPEN_PARENS expression COMP expression CLOSE_PARENS OPEN_CURLY closedinstruction CLOSE_CURLY ELSE OPEN_CURLY closedinstruction CLOSE_CURLY')
+    @pg.production('instruction : IF OPEN_PARENS expression COMP expression CLOSE_PARENS OPEN_CURLY instructions CLOSE_CURLY')
     def expression_ifelse1(p):
+        return IfElse (p[2],p[3],p[4],p[7],None)
+
+    @pg.production('instruction : IF OPEN_PARENS expression COMP expression CLOSE_PARENS OPEN_CURLY instructions CLOSE_CURLY ELSE OPEN_CURLY instructions CLOSE_CURLY')
+    def expression_ifelse2(p):
         return IfElse (p[2],p[3],p[4],p[7],p[11])
 
-    @pg.production('closedinstruction : WHILE OPEN_PARENS expression COMP expression CLOSE_PARENS OPEN_CURLY closedinstruction CLOSE_CURLY')
+    @pg.production('instruction : WHILE OPEN_PARENS expression COMP expression CLOSE_PARENS OPEN_CURLY instructions CLOSE_CURLY')
     def instruction_while(p):
         return While (p[2],p[3],p[4],p[7])
 
