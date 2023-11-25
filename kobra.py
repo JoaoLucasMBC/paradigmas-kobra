@@ -2,7 +2,6 @@
 
 import sys
 import os
-import warnings
 
 from components.executor import Executor
 from components.symboltable import SymbolTable
@@ -28,8 +27,6 @@ def main():
     with open(filename) as f:
         prog = f.read()
     
-    warnings.filterwarnings("ignore")
-
     lexer = create_lexer()
     parser = create_parser()
  
