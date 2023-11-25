@@ -1,0 +1,12 @@
+main {
+    int: a;
+    int: b;
+    a = 7;
+    b = 15;
+
+    while (a > 0) {
+        print(a + b);
+        a = a - 1;
+    }
+    print("Acabou!");
+}
