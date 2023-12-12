@@ -3,11 +3,16 @@ main {
     int: a;
     int: res;
 
-    a = 3;
+    a = 7;
     res = 1;
+
+    print("Calculating the factorial of:");
+    print(a);
 
     while (a > 1) { // that is the factorial function!
         res = res * a;
         a = a - 1;
+        print("Partial result:");
+        print(res);
     }
 }
