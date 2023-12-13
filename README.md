@@ -57,6 +57,28 @@ Por fim, a linguagem também possui suporte para **MODULARIZAÇÃO**, ao poder c
 ![gramatica](assets/gramatica1.png)
 ![gramatica](assets/gramatica2.png)
 
+## Exemplos de código
+
+```kobra
+main {
+    int: a;
+    int: res;
+
+    a = 7;
+    res = 1;
+
+    print("Calculating the factorial of:");
+    print(a);
+
+    while (a > 1) { // that is the factorial function!
+        res = res * a;
+        a = a - 1;
+        print("Partial result:");
+        print(res);
+    }
+}
+```
+
 ## **Saídas e Execução:**
 
 Ao executar um programa em `.kbr`, você perceberá que o programa irá imprimir no terminal o resultado da execução do código. Por exemplo, para o código `in02.kbr`:
@@ -86,7 +108,20 @@ E instale todas as dependências do projeto, presentes em `requirements.txt`:
 
 No notebook `kobra.ipynb`, está a linguagem está dividida em paradigmas demonstrando o processo de desenvolvimento, com exemplos. Caso prefira, você pode executar o notebook para ver o funcionamento da linguagem.
 
-## **Compilando a linguagem em arquivos .kbr**
+## Criando um arquivo .kbr
+
+Siga alguns passos importantes para seguir as regras da linguagem:
+
+1. Crie um arquivo de texto na pasta do repositório, com a extensão `.kbr` (exemplo: `meu-arquivo.kbr`)  
+2. Escreva seu código Kobra no arquivo criado, seguindo as regras da linguagem (consulte a gramática *no começo do arquivo* ou um dos exemplos `.kbr` presentes no repositório)  
+3. Todo seu código deve estar dentro de um escopo de função `main`, que é o ponto de entrada do programa  
+4. Primeiro, DEVEM haver declaração de variáveis  
+5. Segundo, DEVEM haver instruções  
+6. Opcionalmente, você pode criar funções, que devem ser definidas após a função `main` e chamadas dentro dela  
+7. Todos os comandos de controle de fluxo e repetição devem estar dentro de chaves `{}`  
+8. TODO final de instrução deve ser marcado com `;`
+
+## **Compilando a linguagem de arquivos .kbr**
 
 Já o arquivo `kobra.py` é como um "compilador" da linguagem. Você pode usar esse arquivo para rodar códigos escritos em Kobra. Para fazer isso, você deve criar um arquivo de texto na pasta do repositório, **que contenha um código Kobra válido** (para entender como usar a linguagem, consulte a explicação acima, a gramática *no começo do arquivo* ou um dos exemplos `.kbr` presentes no repositório) e então executar o seguinte comando:
 

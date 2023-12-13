@@ -1,0 +1,24 @@
+main { // teste com função auxiliar!
+    float: x;
+    int: counter;
+
+    x = 100.0;
+    counter = 0;
+    
+    // Quantas raizes precisamos tirar de x para que ele se torne menor ou igual a 2?
+    while (x > 2) {
+        x = sqrt(x);
+        counter = counter + 1;
+    }
+
+    print(x);
+    print("Numero de raizes");
+    print(counter);
+}
+
+float sqrt(float: y) {
+  float: aux;
+  print(y);
+  aux = y ^ 0.5;
+  return aux;
+}
