@@ -4,11 +4,73 @@
 - [João Lucas de Moraes Barros Cadorniga](https://github.com/JoaoLucasMBC)
 - [Eduardo Mendes Vaz](https://github.com/EduardoMVAz)
 
-## Funcionamento e Documentação
+## Descrição e Finalidade
 
-todo: gramática
+A finalidade da linguagem Kobra é focada em operações matemáticas. Para isso, a linguagem possui suporte para operações matemáticas básicas, como soma, subtração, multiplicação e divisão, além de uma operação mais complexa, a potenciação. 
 
-Nesse repositório está o código para a linguagem Kobra. Para utilizar a linguagem, clone o repositório na sua máquina:
+A linguagem também possui suporte para operações de comparação, como maior que, menor que, igual a, etc. Tais comparações são usadas para operações de controle de fluxo (if e else) e laços de repetição (while).
+
+Kobra também possui suporte para a operação de saída `print`, que realiza a impressão de dados na tela. Dessa maneira, o desenvolvedor pode fazer checkpoints das suas calculações durante a execução do programa.
+
+Por fim, a linguagem também possui suporte para **MODULARIZAÇÃO**, ao poder criar novos métodos que podem ser acessados na função *main*.
+
+## **Principais funções:**
+
+* 2 tipos: int e float  
+* Operações matemáticas básicas: +, -, *, /, ^  
+* Operações de comparação: >, <, >=, <=, ==, !=  
+* Operações de controle de fluxo: if, else  
+* Operações de repetição: while  
+
+### Novidades criativas:
+
+* Operação de saída: print  
+* Modularização: funções definidas ao final do arquivo podem ser chamadas na função main
+
+### Detalhes das funcionalidades:
+
+* A execução da linguagem Kobra é usando python como linguagem intermediária  
+
+* A linguagem utiliza chaves para delimitar blocos de código, evitando problemas como o *dangling else* e facilitando a visualização do código
+
+* A linguagem possui suporte para comentários de linha, que são iniciados com `//`
+
+* A tipagem da linguagem é estática, ou seja, o tipo de uma variável é definido no momento da sua criação e não pode ser alterado
+
+* Todos os métodos devem ser definidos após a função main, e devem ser chamados dentro da função main
+
+* Os métodos devem ter um tipo de retorno definido, e esse tipo deve ser o mesmo do tipo da variável que irá receber o retorno do método. Retorno não é obrigatório, para isso, o tipo de retorno deve ser `void` e o statement de retorno deve ser apenas `return;`
+
+* Os métodos podem receber apenas UM parâmetro, com tipo definido.
+
+* Todos os métodos, incluindo a main, devem ser compostos de, primeiramente, declarações de variáveis, e então statements. Declarações de variáveis devem ser feitas no início do método, e statements devem ser feitos após as declarações de variáveis.
+
+* Mantendo sua característica estática, algumas observações são importantes:  
+    * Não é possível realizar operações entre variáveis de tipos diferentes;  
+    * Não é possível criar mais de uma variável com o mesmo nome, mesmo que esteja em outro escopo, isso causará que a variável seja sobrescrita;  
+    * Pelo mesmo motivo descrito acima, ainda não é possível realizar recursão;
+
+* Métodos podem apensar ser chamados individualmente ou para seu retorno ser atribuído para uma variável, mantendo o controle da linguagem.
+
+## **[Gramática](./gramatica-kobra.txt)**
+
+![gramatica](assets/gramatica1.png)
+![gramatica](assets/gramatica2.png)
+
+## **Saídas e Execução:**
+
+Ao executar um programa em `.kbr`, você perceberá que o programa irá imprimir no terminal o resultado da execução do código. Por exemplo, para o código `in02.kbr`:
+
+![in02](assets/kobra.png)
+
+Sendo que os prints em abaixo de "RUNTIME" representam as coisas impressas durante a execução do código Kobra (usando `print`), e o "Result" representa o **estado final de TODAS as variáveis criadas no código, inclusive as locais**.
+
+</br>
+
+# **COMO UTILIZAR A LINGUAGEM**
+
+Para utilizar a linguagem, clone o repositório na sua máquina:
+        
         git clone https://github.com/JoaoLucasMBC/paradigmas-kobra.git
 
 Crie um ambiente virtual na pasta do projeto:
@@ -22,20 +84,20 @@ E instale todas as dependências do projeto, presentes em `requirements.txt`:
 
         pip install -r requirements.txt
 
-No notebook `kobra.ipynb`, está a linguagem está dividida em paradigmas demonstrando o processo de desenvolvimento, com exemplos.
+No notebook `kobra.ipynb`, está a linguagem está dividida em paradigmas demonstrando o processo de desenvolvimento, com exemplos. Caso prefira, você pode executar o notebook para ver o funcionamento da linguagem.
 
-Já o arquivo `kobra.py` é como um "compilador" da linguagem. Você pode usar esse arquivo para rodar códigos escritos em Kobra. Para fazer isso, você deve criar um arquivo de texto na pasta do repositório, **que contenha um código Kobra válido** (para entender como usar a linguagem, consulte a gramática acima ou um dos exemplos `.kbr` presentes no repositório) e então executar o seguinte comando:
+## **Compilando a linguagem em arquivos .kbr**
+
+Já o arquivo `kobra.py` é como um "compilador" da linguagem. Você pode usar esse arquivo para rodar códigos escritos em Kobra. Para fazer isso, você deve criar um arquivo de texto na pasta do repositório, **que contenha um código Kobra válido** (para entender como usar a linguagem, consulte a explicação acima, a gramática *no começo do arquivo* ou um dos exemplos `.kbr` presentes no repositório) e então executar o seguinte comando:
 
     windows:
-        python kobra.py nome-do-arquivo-aqui.extensão-do-arquivo
+        python kobra.py caminho-do-arquivo-aqui.extensão-do-arquivo
     linux:
-        python3 kobra.py nome-do-arquivo-aqui.extensão-do-arquivo
+        python3 kobra.py caminho-do-arquivo-aqui.extensão-do-arquivo
 
-O executor irá então imprimir no terminal o resultado da execução do arquivo. Para o exemplo `in02.kbr`, a saída no terminal seria:
+O executor irá então imprimir no terminal o resultado da execução do arquivo. Como já demonstrado, para o exemplo `in02.kbr`, a saída no terminal seria:
 
 ![in02](assets/kobra.png)
-
-Sendo que os prints em abaixo de "RUNTIME" representam as coisas impressas durante a execução do código Kobra, e o "Result" representa o **estado final das variáveis criadas no código**.
 
 ## Dependências e Funcionalidades
 

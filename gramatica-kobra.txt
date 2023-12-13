@@ -1,0 +1,67 @@
+<main> ::= 	MAIN { <vars> <instructions> } |
+		MAIN { <vars> <instructions> } <functions>
+
+## Declaração de Variáveis
+
+<vars> ::= 	<var> <vars> |
+		<var>
+
+<var> ::=	FLOAT: ID; |
+		INT: ID;
+
+## Instruções
+
+<instructions> ::=	<instruction> <instructions> |
+			<instruction>
+			
+			# atrib
+<instruction> ::=	ID = <expression>; |
+			
+			# print
+			PRINT (STRING); |
+			PRINT (<expression>); |
+			
+			# if-else
+			IF (<expression> COMP <expression>) { <instructions> } |
+			IF (<expression> COMP <expression>) { <instructions> } ELSE { <instructions> } |
+
+			# while
+			WHILE (<expression> COMP <expression>) { <instructions> } |
+			
+			# chamadas de função como uma instrução
+			ID(ID); |
+			ID();
+
+## Funções
+
+<functions> ::= 	<function> <functions> |
+			<function>
+
+<function> ::= 		<ret_type> ID (<arg>) { <vars> <instructions> <return> } |
+			<ret_type> ID () { <vars> <instructions> <return> }
+
+<arg> ::=		INT: ID |
+			FLOAT: ID
+
+<ret_type> ::= 		INT |
+			FLOAT |
+			VOID
+
+<return> ::= 		RETURN; |
+			RETURN <expression>;
+
+
+## Expressões
+
+<expression> ::= 	ID |
+			NUMBER |
+			( <expression> ) |
+			<expression> + <expression> | # soma
+			<expression> - <expression> | # subtração
+			<expression> * <expression> | # multiplicação
+			<expression> / <expression> | # divisão
+			<expression> ^ <expression> | # potenciação
+			
+			# chamadas de função como uma expressão (para atrib)
+			ID(ID) |
+			ID()
