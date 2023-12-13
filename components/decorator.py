@@ -2,11 +2,23 @@ from components.genericvisitor import Visitor
 from components.nodes import Expr
 
 class Decorator(Visitor):
-    def __init__(self, ST):
+    def __init__(self, ST, FT):
         self.ST = ST
+        self.FT = FT
 
     def visit_main(self, p):
         p.instrs.accept(self)
+        if p.funcs != None:
+            p.funcs.accept(self)
+
+    def visit_funcs(self, f):
+        f.func.accept(self)
+        if f.funcs != None:
+            f.funcs.accept(self)
+
+    def visit_func(self, f):
+        f.instrs.accept(self)
+        f.ret.accept(self)
 
     def visit_instructions(self, i):
         i.instr.accept(self)
@@ -39,13 +51,23 @@ class Decorator(Visitor):
         i.expr2.accept(self)
         i.ie1.accept(self)
 
+    def visit_return(self, r):
+        if r.expr != None:
+          r.expr.accept(self)
+          r.decor_type = r.expr.decor_type
+        else:
+          r.decor_type = 'void'
+
+    def visit_call(self, c):
+        if not c.func_id in self.FT:
+          raise AssertionError('function not declared')
+        c.decor_type = self.FT[c.func_id].ret_type
 
     def visit_id(self, i):
         if i.value in self.ST:
           i.decor_type = self.ST[i.value]
         else:
           raise AssertionError('id not declared')
-
 
     def visit_number(self, i):
         if "." in str(i.value):
@@ -90,7 +112,7 @@ class Decorator(Visitor):
           a.decor_type="float"
         else:
           a.decor_type="int"
-    
+
     def visit_pow(self, a):
         a.left.accept(self)
         a.right.accept(self)

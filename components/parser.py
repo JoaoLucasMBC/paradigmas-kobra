@@ -6,8 +6,8 @@ def create_parser():
     pg = ParserGenerator(
         # A list of all token names, accepted by the lexer.
         ['NUMBER', 'OPEN_PARENS', 'CLOSE_PARENS', 'OPEN_CURLY', 'CLOSE_CURLY', 'COLON',
-        'PLUS', 'MINUS', 'MUL', 'DIV', 'POW', 'INT', 'FLOAT', 'ID','ENDLINE',
-        'EQUALS','COMP','IF','ELSE','WHILE', 'MAIN', 'PRINT', 'STRING'
+        'PLUS', 'MINUS', 'MUL', 'DIV', 'POW', 'INT', 'FLOAT', 'VOID', 'ID','ENDLINE',
+        'EQUALS','COMP','IF','ELSE','WHILE', 'MAIN', 'PRINT', 'STRING', 'RETURN'
         ],
         # A list of precedence rules with ascending precedence, to
         # disambiguate ambiguous production rules.
@@ -20,7 +20,11 @@ def create_parser():
 
     @pg.production('main : MAIN OPEN_CURLY vars instructions CLOSE_CURLY')
     def prog(p):
-        return Main(p[2],p[3])
+        return Main(p[2],p[3], None)
+
+    @pg.production('main : MAIN OPEN_CURLY vars instructions CLOSE_CURLY functions')
+    def prog(p):
+        return Main(p[2], p[3], p[5])
 
     ##################################################
     # DECLARAÇÕES DE VARIÁVEIS
@@ -118,6 +122,69 @@ def create_parser():
             return Pow(left, right)
         else:
             raise AssertionError('Oops, this should not be possible!')
+
+    ### FUNCTIONS
+
+    @pg.production('functions : function functions')
+    def functions(p):
+        return Funcs(p[0], p[1])
+
+    @pg.production('functions : function')
+    def function(p):
+        return Funcs(p[0], None)
+
+    @pg.production('function : ret_type ID OPEN_PARENS arg CLOSE_PARENS OPEN_CURLY vars instructions return CLOSE_CURLY')
+    def func_def(p):
+        return Func(p[0], p[1].getstr(), p[3], p[6], p[7], p[8])
+
+    @pg.production('arg : INT COLON ID')
+    def arg_int(p):
+        return Var(p[2].getstr(), "int")
+
+    @pg.production('arg : FLOAT COLON ID')
+    def arg_float(p):
+        return Var(p[2].getstr(), "float")
+
+    @pg.production('function : ret_type ID OPEN_PARENS CLOSE_PARENS OPEN_CURLY vars instructions return CLOSE_CURLY')
+    def func_def(p):
+        return Func(p[0], p[1].getstr(), None, p[5], p[6], p[7])
+
+    @pg.production('expression : ID OPEN_PARENS ID CLOSE_PARENS')
+    def expr_call(p):
+        return Call(p[0].getstr(), p[2].getstr())
+
+    @pg.production('expression : ID OPEN_PARENS CLOSE_PARENS')
+    def expr_call(p):
+        return Call(p[0].getstr(), None)
+
+    @pg.production('instruction : ID OPEN_PARENS ID CLOSE_PARENS ENDLINE')
+    def expr_call(p):
+        return Call(p[0].getstr(), p[2].getstr())
+
+    @pg.production('instruction : ID OPEN_PARENS CLOSE_PARENS ENDLINE')
+    def expr_call(p):
+        return Call(p[0].getstr(), None)
+
+    @pg.production('return : RETURN expression ENDLINE')
+    def expr_return(p):
+        return Return(p[1])
+
+    @pg.production('return : RETURN ENDLINE')
+    def expr_return_empty(p):
+        return Return(None)
+
+    @pg.production('ret_type : INT')
+    def ret_int(p):
+        return 'int'
+
+    @pg.production('ret_type : FLOAT')
+    def ret_int(p):
+        return 'float'
+
+    @pg.production('ret_type : VOID')
+    def ret_void(p):
+        return 'void'
+
 
     parser = pg.build()
     return parser

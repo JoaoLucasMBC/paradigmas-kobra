@@ -1,12 +1,37 @@
 from rply.token import BaseBox
 
 class Main(BaseBox):
-    def __init__(self, vars, instrs):
+    def __init__(self, vars, instrs, funcs):
         self.vars = vars
         self.instrs = instrs
+        self.funcs = funcs
 
     def accept(self, visitor):
         visitor.visit_main(self)
+
+## FUNCTIONS
+
+class Funcs(BaseBox):
+    def __init__(self, func, funcs):
+        self.func = func
+        self.funcs = funcs
+
+    def accept(self, visitor):
+        visitor.visit_funcs(self)
+
+class Func(BaseBox):
+    def __init__(self, ret_type, id, arg, vars, instrs, ret):
+       self.ret_type = ret_type
+       self.id = id
+       self.arg = arg
+       self.vars = vars
+       self.instrs = instrs
+       self.ret = ret
+
+    def accept(self, visitor):
+        visitor.visit_func(self)
+
+## RESTO
 
 
 class Vars(BaseBox):
@@ -91,6 +116,21 @@ class Id(Expr):
 class Number(Expr):
     def __init__(self, value):
         self.value = value
+
+## CALLING A FUNCTIONS IS AN EXPRESSION
+class Call(Expr):
+    def __init__(self, func_id, arg):
+        self.func_id = func_id
+        self.arg = arg
+
+class Return(BaseBox):
+    def __init__(self, expr):
+        self.expr = expr
+
+    def accept(self, visitor):
+        visitor.visit_return(self)
+
+## RESTO
 
 
 class BinaryOp(Expr):

@@ -12,6 +12,7 @@ def create_lexer():
     lg.add('DIV', r'/')
     lg.add('POW', r'\^')
     lg.add('PRINT', r'print')
+    lg.add('RETURN', r'return')
     lg.add('OPEN_PARENS', r'\(')
     lg.add('CLOSE_PARENS', r'\)')
 
@@ -22,6 +23,7 @@ def create_lexer():
 
     lg.add('COLON', r':')
 
+    lg.add('VOID', r'void')
     lg.add('INT', r'int')
     lg.add('FLOAT', r'float')
     lg.add('IF', r'if')
