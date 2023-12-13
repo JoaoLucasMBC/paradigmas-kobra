@@ -8,6 +8,8 @@
 
 A finalidade da linguagem Kobra é focada em operações matemáticas. Para isso, a linguagem possui suporte para operações matemáticas básicas, como soma, subtração, multiplicação e divisão, além de uma operação mais complexa, a potenciação. 
 
+Com o controle de saída de dados e exposições de resultados ao final do programa, o desenvolvedor pode realizar cálculos e obter resultados de forma mais rápida e eficiente, focando apenas em tipos numéricos de variáveis.
+
 A linguagem também possui suporte para operações de comparação, como maior que, menor que, igual a, etc. Tais comparações são usadas para operações de controle de fluxo (if e else) e laços de repetição (while).
 
 Kobra também possui suporte para a operação de saída `print`, que realiza a impressão de dados na tela. Dessa maneira, o desenvolvedor pode fazer checkpoints das suas calculações durante a execução do programa.
