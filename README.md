@@ -46,7 +46,7 @@ Por fim, a linguagem também possui suporte para **MODULARIZAÇÃO**, ao poder c
 * Todos os métodos, incluindo a main, devem ser compostos de, primeiramente, declarações de variáveis, e então statements. Declarações de variáveis devem ser feitas no início do método, e statements devem ser feitos após as declarações de variáveis.
 
 * Mantendo sua característica estática, algumas observações são importantes:  
-    * Não é possível realizar operações entre variáveis de tipos diferentes;  
+    * É possível realizar operações e comparações entre variáveis de tipos diferentes, mas, caso haja atribuição, o tipo da variável que receberá a atribuição deve ser o tipo do resultado da expressão;  
     * Não é possível criar mais de uma variável com o mesmo nome, mesmo que esteja em outro escopo, isso causará que a variável seja sobrescrita;  
     * Pelo mesmo motivo descrito acima, ainda não é possível realizar recursão;
 
