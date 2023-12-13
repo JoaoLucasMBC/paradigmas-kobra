@@ -5,6 +5,7 @@ import os
 
 from components.executor import Executor
 from components.symboltable import SymbolTable
+from components.functable import FuncTable
 from components.decorator import Decorator
 from components.typeverifier import TypeVerifier
 from components.lexer import create_lexer
@@ -30,14 +31,16 @@ def main():
     lexer = create_lexer()
     parser = create_parser()
  
-    executor = Executor()
     symbol_table = SymbolTable()
+    func_table = FuncTable()
+    executor = Executor(func_table.FT)
 
     print("RUNTIME:")
     arvore = parser.parse(lexer.lex(prog))
     arvore.accept(symbol_table)
-    arvore.accept(Decorator(symbol_table.ST))
-    arvore.accept(TypeVerifier())
+    arvore.accept(func_table)
+    arvore.accept(Decorator(symbol_table.ST, func_table.FT))
+    arvore.accept(TypeVerifier(symbol_table.ST, func_table.FT))
     arvore.accept(executor)
     print("")
 
